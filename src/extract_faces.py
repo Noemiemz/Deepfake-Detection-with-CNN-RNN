@@ -13,6 +13,7 @@ def extract_faces_from_videos(
     input_folder: str,
     output_images_dir: str,
     frames_per_second: int = 1,
+    nb_frames_per_time_window: int = 1,
 ):
     """
     Extracts faces from all .mp4 files in the input folder and saves face crops and YOLO annotations.
@@ -46,7 +47,8 @@ def extract_faces_from_videos(
             ret, frame = cap.read()
             if not ret:
                 break
-            if frame_id % frame_interval == 0: # process this frame
+            
+            if frame_id % frame_interval in range(nb_frames_per_time_window): # process these n frames
                 results = model(frame)
                 detections = Detections.from_ultralytics(results[0])
                 if len(detections.xyxy) == 0:
@@ -76,6 +78,7 @@ if __name__ == "__main__":
     parser.add_argument("--input_folder", type=str, required=True, help="Path to folder containing .mp4 files.")
     parser.add_argument("--output_images_dir", type=str, required=True, help="Path to save extracted face images.")
     parser.add_argument("--frames_per_second", type=int, default=1, help="Number of frames to extract per second.")
+    parser.add_argument("--nb_frames_per_time_window", type=int, default=1, help="Number of frames to process per time window.")
 
     args = parser.parse_args()
     extract_faces_from_videos(
