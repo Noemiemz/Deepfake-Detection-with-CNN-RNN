@@ -3,4 +3,9 @@
 py src/extract_faces.py --input_folder data/videos/original --output_images_dir data/images --frames_per_second 2 --nb_frames_per_time_window 1 
 
 
-py src/extract_faces.py --input_folder data/videos/FaceSwap --output_images_dir data/images --frames_per_second 2 --nb_frames_per_time_window 1 
+py src/extract_faces.py --input_folder data/videos/original --output_images_dir data/images_successive --n_first_faces 15
+
+py src/extract_faces.py --input_folder data/videos/FaceSwap --output_images_dir data/images_successive --n_first_faces 15
+
+
+py src/predict_video.py --video_path "data/videos/Deepfakes/006_002.mp4"
