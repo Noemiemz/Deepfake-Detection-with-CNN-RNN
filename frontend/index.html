@@ -8,12 +8,21 @@
   </head>
   <body>
     <main class="container">
-      <h1>Détection de Deepfake</h1>
+      <header class="header">
+        <h1 class="title">🔍 Détecteur de Deepfake</h1>
+        <p class="subtitle">Analysez vos images et vidéos pour détecter les deepfakes</p>
+      </header>
 
       <div class="uploader">
         <label class="file-drop" id="drop-area">
           <input type="file" id="file-input" accept="image/*,video/*" />
-          <div class="drop-text">Cliquez pour choisir une image ou une vidéo, ou glissez-la ici</div>
+          <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <div class="drop-text">Cliquez ou glissez votre fichier ici</div>
+          <div class="drop-hint">Image ou vidéo (Max 500MB)</div>
         </label>
 
         <div class="preview" id="preview-wrapper" aria-live="polite">
@@ -22,16 +31,12 @@
         </div>
 
         <div class="controls">
-          <button id="simulate-btn" class="btn">Analyser le média</button>
+          <button id="simulate-btn" class="btn btn-primary">📊 Analyser le média</button>
         </div>
 
-        <div id="result" class="result" aria-live="polite"></div>
         <div id="spinner" class="spinner hidden" aria-hidden="true"></div>
+        <div id="result" class="result" aria-live="polite" aria-atomic="true"></div>
       </div>
-
-      <footer class="note">
-        Backend attendu: POST <code>/api/detect</code> (FormData avec clé <code>file</code> — image ou vidéo). Réponse JSON attendue: <code>{ "is_deepfake": true|false, "score": 0.87 }</code>.
-      </footer>
     </main>
 
     <script src="home.js"></script>

@@ -37,16 +37,53 @@
 	}
 
 	function setResult(text, isDeepfake = null, score = null) {
-		let html = `<p>${text}</p>`;
-		if (isDeepfake !== null) {
-			html += `<p class="badge ${isDeepfake ? 'deep' : 'real'}">${isDeepfake ? 'Deepfake' : 'Authentique'}</p>`;
+		const resultEl = $('result');
+		let html = '';
+
+		if (isDeepfake !== null && score !== null) {
+			const isDeep = isDeepfake === true;
+			const cardClass = isDeep ? 'deepfake' : 'authentic';
+			const badgeText = isDeep ? '⚠️ DEEPFAKE DÉTECTÉ' : '✓ AUTHENTIQUE';
+			const description = isDeep 
+				? 'Cette vidéo présente des caractéristiques propre au deepfake. Soyez prudent avec ce contenu.'
+				: 'Cette vidéo semble authentique et n\'a pas été manipulée.';
+			
+			const confidence = Math.abs(score - 0.5) * 200;
+			const confidenceLevel = confidence > 75 ? 'high' : 'low';
+			
+			html = `
+				<div class="result-card ${cardClass}">
+					<h2 class="result-title">${badgeText}</h2>
+					<p class="result-description">${description}</p>
+					
+					<div class="score-container">
+						<label class="score-label">Score d'analyse</label>
+						<div class="score-bar">
+							<div class="score-fill" style="width: ${score * 100}%"></div>
+						</div>
+						<div class="score-value">${(score * 100).toFixed(1)}%</div>
+					</div>
+					
+					<div class="confidence-indicator ${confidenceLevel}">
+						<span>${confidenceLevel === 'high' ? '🎯' : '⚡'}</span>
+						<span>Confiance: ${confidence.toFixed(1)}%</span>
+					</div>
+				</div>
+			`;
+			
+			// Change la couleur de fond de la page
+			document.body.classList.remove('result-deepfake', 'result-authentic');
+			document.body.classList.add(isDeep ? 'result-deepfake' : 'result-authentic');
+		} else {
+			html = `<div class="result-error">${text}</div>`;
 		}
-		if (score !== null) html += `<p>Score: ${Number(score).toFixed(3)}</p>`;
+
 		resultEl.innerHTML = html;
 	}
 
 	function resetResult() {
 		resultEl.innerHTML = '';
+		document.body.classList.remove('result-deepfake', 'result-authentic');
 	}
 
 	// Events
@@ -132,7 +169,7 @@
 			return;
 		}
 		showSpinner(true);
-		setResult('Traitement en cours...');
+		setResult('🔄 Analyse en cours... Cela peut prendre quelques secondes.');
 		
 		// Crée un FileReader pour lire le fichier en tant que buffer
 		const reader = new FileReader();
@@ -151,20 +188,16 @@
 			.then(data => {
 				showSpinner(false);
 				if (data.error) {
-					setResult(`Erreur: ${data.error}`);
+					setResult(`❌ Erreur: ${data.error}`);
 				} else {
 					const score = data.score;
 					const isDeep = score > 0.5;
-					setResult(
-						isDeep ? `Résultat: vidéo deepfake probable.` : `Résultat: vidéo probablement authentique.`,
-						isDeep,
-						score
-					);
+					setResult('', isDeep, score);
 				}
 			})
 			.catch(err => {
 				showSpinner(false);
-				setResult(`Erreur de connexion: ${err.message}`);
+				setResult(`❌ Erreur de connexion: ${err.message}`);
 			});
 		};
 		reader.readAsArrayBuffer(currentFile);
