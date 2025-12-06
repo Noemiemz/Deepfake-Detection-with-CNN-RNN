@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Détection Deepfake</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Détection de Deepfake</h1>
+
+      <div class="uploader">
+        <label class="file-drop" id="drop-area">
+          <input type="file" id="file-input" accept="image/*,video/*" />
+          <div class="drop-text">Cliquez pour choisir une image ou une vidéo, ou glissez-la ici</div>
+        </label>
+
+        <div class="preview" id="preview-wrapper" aria-live="polite">
+          <img id="preview-img" alt="Aperçu de l'image" />
+          <video id="preview-video" controls muted playsinline></video>
+        </div>
+
+        <div class="controls">
+          <button id="simulate-btn" class="btn">Analyser le média</button>
+        </div>
+
+        <div id="result" class="result" aria-live="polite"></div>
+        <div id="spinner" class="spinner hidden" aria-hidden="true"></div>
+      </div>
+
+      <footer class="note">
+        Backend attendu: POST <code>/api/detect</code> (FormData avec clé <code>file</code> — image ou vidéo). Réponse JSON attendue: <code>{ "is_deepfake": true|false, "score": 0.87 }</code>.
+      </footer>
+    </main>
+
+    <script src="home.js"></script>
+  </body>
+</html>
