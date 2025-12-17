@@ -117,7 +117,7 @@ The split is done randomly with a fixed seed to ensure reproducibility.
 
 Training is performed in the notebook:
 ```bash
-test_model.ipynb
+train_model.ipynb
 ```
 
 ### Training Configuration
