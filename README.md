@@ -182,6 +182,10 @@ The inference pipeline performs the following steps:
 
 
 ## Tools and Libraries
+To have all of the tools needed to run the project, run:
+```bash
+pip install -r requirements.txt
+```
 
 The project was developed in Python using the following tools:
 
