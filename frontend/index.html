@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Détection Deepfake</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1 class="title">🔍 Détecteur de Deepfake</h1>
+        <p class="subtitle">Analysez vos images et vidéos pour détecter les deepfakes</p>
+      </header>
+
+      <div class="uploader">
+        <label class="file-drop" id="drop-area">
+          <input type="file" id="file-input" accept="image/*,video/*" />
+          <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <div class="drop-text">Cliquez ou glissez votre fichier ici</div>
+          <div class="drop-hint">Image ou vidéo (Max 500MB)</div>
+        </label>
+
+        <div class="preview" id="preview-wrapper" aria-live="polite">
+          <img id="preview-img" alt="Aperçu de l'image" />
+          <video id="preview-video" controls muted playsinline></video>
+        </div>
+
+        <div class="controls">
+          <button id="simulate-btn" class="btn btn-primary">📊 Analyser le média</button>
+        </div>
+
+        <div id="spinner" class="spinner hidden" aria-hidden="true"></div>
+        <div id="result" class="result" aria-live="polite" aria-atomic="true"></div>
+      </div>
+    </main>
+
+    <script src="home.js"></script>
+  </body>
+</html>

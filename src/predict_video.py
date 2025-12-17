@@ -107,7 +107,7 @@ def predict_video(video_path: str, model_path: str, device: str = 'cuda', plot_f
     Predict if a video is real or fake.
     
     Args:
-        video_path: Path to the video file
+        video_path: Path to the video file (can be local file path or URL)
         model_path: Path to the trained model weights
         device: Device to run inference on ('cuda' or 'cpu')
         plot_faces: Whether to plot the extracted faces
@@ -115,6 +115,7 @@ def predict_video(video_path: str, model_path: str, device: str = 'cuda', plot_f
     Returns:
         float: Prediction score between 0 (real) and 1 (fake)
     """
+    
     # Extract faces
     faces = extract_first_n_faces(video_path, n=15, images_per_second=1)
     
