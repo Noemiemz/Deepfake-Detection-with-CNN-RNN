@@ -204,10 +204,10 @@ The project was developed in Python using the following tools:
 
 ## Collaborators
 
-Lorrain MORLET
-Aymeric MARTIN
-Auriane MARCELINO
-Augustin GALL
-Iliana JAUNAY
-Maxence VAN LAERE
+Lorrain MORLET,
+Aymeric MARTIN,
+Auriane MARCELINO,
+Augustin GALL,
+Iliana JAUNAY,
+Maxence VAN LAERE,
 Noémie MAZEPA
