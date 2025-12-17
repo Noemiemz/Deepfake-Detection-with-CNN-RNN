@@ -135,7 +135,9 @@ train_model.ipynb
 - Device: GPU (if available) or CPU
 
 After training, the model weights are saved to:
-- deepfake_detector.pth
+```bash
+deepfake_detector.pth
+```
 
 
 ## Evaluation Strategy
